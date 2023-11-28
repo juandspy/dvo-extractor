@@ -1,7 +1,7 @@
 plugins:
   packages:
     - insights.specs.default
-    - dvo_gc_extractor
+    - dvo_extractor
     - pythonjsonlogger
     - pythonjsonlogger.jsonlogger
 service:
@@ -13,7 +13,7 @@ service:
     name: ccx_messaging.consumers.consumer.Consumer
     kwargs:
       incoming_topic: ${CDP_INCOMING_TOPIC:platform.upload.buckit}
-      group_id: ${CDP_GROUP_ID:dvo_gc_extractor_app}
+      group_id: ${CDP_GROUP_ID:dvo_extractor_app}
       bootstrap_servers: ${CDP_CONSUMER_SERVER:["10.34.129.172:9092"]}
       processing_timeout_s: 0
       max_poll_records: 10
@@ -62,7 +62,7 @@ service:
         format: "%(filename)s %(levelname)s %(asctime)s %(name)s %(hostname)s %(mac_address)s %(message)s"
     filters:
       context_filter:
-        (): "dvo_gc_extractor.log_filter.LogFilter"
+        (): "dvo_extractor.log_filter.LogFilter"
     root:
       handlers:
         - default
@@ -74,5 +74,5 @@ service:
         level: DEBUG
       insights:
         level: WARNING
-      dvo_gc_extractor:
+      dvo_extractor:
         level: DEBUG
